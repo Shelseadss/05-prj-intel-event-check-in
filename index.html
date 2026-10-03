@@ -4,11 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Intel Sustainability Summit Check-In</title>
-    <!-- Add Font Awesome CSS -->
+    <!-- Bootstrap supplies the responsive grid and utility classes used below. -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome supplies the icons used in the hero and buttons. -->
+    <!-- These fonts separate display headings from readable body text. -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Custom theme and component styles load last so they can customize Bootstrap. -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -24,64 +37,97 @@
         </p>
       </div>
     </div>
-    <!-- Attendance tracking -->
-    <div class="attendance-tracker">
-      <div class="attendance-header">
-        <i class="fas fa-users"></i>
-        Attendance: <span id="attendeeCount">0</span>/50
-      </div>
-      <div class="progress-container">
-        <div id="progressBar" class="progress-bar"></div>
-      </div>
-    </div>
-    <div class="container">
-      <!-- Feedback message -->
+    <!-- JavaScript fills this reserved area after a successful check-in. -->
+    <div class="welcome-area" aria-live="polite">
       <p id="greeting"></p>
-
-      <!-- Check-in form -->
-      <form class="check-in" id="checkInForm">
-        <label for="attendeeName" class="form-label">Attendee Check-In</label>
-        <div class="form-group">
-          <div class="input-wrapper">
-            <input
-              type="text"
-              id="attendeeName"
-              name="attendeeName"
-              placeholder="Enter name..."
-              required
-            />
-            <select id="teamSelect" name="team" required>
-              <option value="" disabled selected>Select Team...</option>
-              <option value="water">Team Water Wise</option>
-              <option value="zero">Team Net Zero</option>
-              <option value="power">Team Renewables</option>
-            </select>
-          </div>
-          <button type="submit" id="checkInBtn">
-            <i class="fas fa-user-check"></i> Check In
-          </button>
+    </div>
+    <!-- Bootstrap stacks these columns on small screens and places them side by side on desktop. -->
+    <main class="container main-content">
+      <div class="row g-4 align-items-start">
+        <div class="col-12 col-lg-7">
+          <!-- The form collects the attendee name and team selection. -->
+          <form class="check-in" id="checkInForm">
+            <label for="attendeeName" class="form-label">Attendee Check-In</label>
+            <div class="form-group">
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="attendeeName"
+                  name="attendeeName"
+                  placeholder="Enter name..."
+                  required
+                />
+                <select id="teamSelect" name="team" required>
+                  <option value="" disabled selected>Select Team...</option>
+                  <option value="water">Team Water Wise</option>
+                  <option value="zero">Team Net Zero</option>
+                  <option value="power">Team Renewables</option>
+                </select>
+              </div>
+              <button type="submit" id="checkInBtn">
+                <i class="fas fa-user-check"></i> Check In
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
 
-      <!-- Team stats -->
-      <div class="team-stats">
-        <h3>Team Attendance</h3>
-        <div class="teams-grid">
-          <div class="team-card water">
+        <div class="col-12 col-lg-5">
+          <!-- This status card is updated by the same JavaScript state as the form. -->
+          <section class="attendance-tracker" aria-labelledby="attendanceHeading">
+            <div class="attendance-header" id="attendanceHeading">
+              <i class="fas fa-users"></i>
+              Attendance: <span id="attendeeCount">0</span>/50
+            </div>
+            <p id="capacityStatus" class="capacity-status">0 / 50 attendees checked in</p>
+            <div class="progress-container">
+              <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <p id="capacityPercentage" class="capacity-percentage">0% capacity</p>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Team cards display the three individual team totals. -->
+    <section class="team-stats" aria-labelledby="teamStatsHeading">
+      <p class="team-kicker">Team Breakdown</p>
+      <h3 id="teamStatsHeading" class="text-center fw-bold">Team Attendance</h3>
+      <div class="teams-grid row g-3">
+        <div class="col-12 col-md-4">
+          <div class="team-card water rounded-pill shadow-sm h-100">
             <span class="team-name">🌊 Team Water Wise</span>
             <span class="team-count" id="waterCount">0</span>
+            <span class="team-label">attendees</span>
           </div>
-          <div class="team-card zero">
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="team-card zero rounded-pill shadow-sm h-100">
             <span class="team-name">🌿 Team Net Zero</span>
             <span class="team-count" id="zeroCount">0</span>
+            <span class="team-label">attendees</span>
           </div>
-          <div class="team-card power">
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="team-card power rounded-pill shadow-sm h-100">
             <span class="team-name">⚡ Team Renewables</span>
             <span class="team-count" id="powerCount">0</span>
+            <span class="team-label">attendees</span>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- This Bootstrap alert stays hidden until the event reaches its attendance goal. -->
+    <section class="celebration-area" aria-live="polite">
+      <div id="celebrationMessage" class="alert alert-success d-none" role="status"></div>
+    </section>
+
+    <!-- JavaScript rebuilds this responsive list from the saved attendee records. -->
+    <section class="attendee-list-section" aria-labelledby="attendeeListHeading">
+      <p class="team-kicker">Check-In History</p>
+      <h3 id="attendeeListHeading">Checked-In Attendees</h3>
+      <ul id="attendeeList" class="list-group"></ul>
+    </section>
 
     <footer class="footer">
       &copy; 2025 Intel •
@@ -92,6 +138,12 @@
       >
     </footer>
 
+    <!-- Bootstrap JavaScript enables interactive Bootstrap components if they are added later. -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
     <script src="script.js"></script>
   </body>
 </html>

@@ -1,42 +1,73 @@
-/* Modern reset */
+/* Reset default browser spacing so all components start from the same baseline. */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Shared theme colors keep the background, panels, accents, and text consistent. */
+:root {
+  --intel-blue: #0071c5;
+  --energy-blue: #00c7fd;
+  --ocean-blue: #1b6ca8;
+  --navy: #020d1d;
+  --navy-2: #081b2e;
+  --navy-3: #102b42;
+  --ink: #edf7ff;
+  --muted-ink: #a8bfd2;
+  --cloud: #091d2e;
+  --mist: #0f2438;
+  --sustainability-teal: #2bc4c1;
+  --sustainability-green: #3ed8a4;
+  --sustainability-gold: #f6c453;
+  --white: #f4f9ff;
+  --panel-light: rgba(237, 247, 255, 0.94);
+  --panel-light-blue: rgba(214, 235, 248, 0.92);
+  --panel-ink: #08233b;
+  --panel-muted: #42627a;
+}
+
 body {
+  /* The overlay keeps the event photo visible without reducing text contrast. */
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background:
+    linear-gradient(
+      rgba(2, 13, 29, 0.78) 0%,
+      rgba(2, 13, 29, 0.84) 52%,
+      rgba(2, 13, 29, 0.98) 100%
+    ),
+    url("img/bg.jpg") center top / cover fixed;
+  color: var(--ink);
   line-height: 1.6;
   min-height: 100vh;
 }
 
-/* Add form label styling */
+/* Space Grotesk gives headings a stronger event/dashboard presence. */
+h1,
+h2,
+h3,
+.hero h1,
+.team-stats h3 {
+  font-family: "Space Grotesk", "Segoe UI", Arial, sans-serif;
+}
+
+/* Light panel labels use dark text for contrast against the card background. */
 .form-label {
   display: block;
   text-align: left;
   margin-bottom: 15px;
-  color: #475569;
+  color: var(--panel-muted);
   padding-left: 5px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 700;
 }
 
-/* Hero Section */
+/* Full-width event branding section. The photo is applied to body so it continues below. */
 .hero {
-  background: linear-gradient(
-      135deg,
-      rgba(0, 153, 219, 0.9) 0%,
-      rgba(0, 104, 181, 0.9) 50%,
-      rgba(0, 60, 116, 0.9) 100%
-    ),
-    url("img/bg.jpg");
-  background-size: cover;
-  background-position: center;
   text-align: center;
   padding: 60px 32px;
-  color: #fff;
+  color: var(--white);
   margin-bottom: 34px;
 }
 
@@ -58,43 +89,46 @@ body {
   text-transform: uppercase;
   margin-bottom: 16px;
   letter-spacing: -0.5px;
-  color: white;
+  color: var(--white);
 }
 
 .hero-divider {
   width: 100px;
   height: 3px;
   margin: 26px auto;
-  background-color: #00c7fd;
+  background-color: var(--energy-blue);
 }
 
 .hero p {
   font-size: 22px;
   letter-spacing: 1px;
   font-weight: 300;
-  color: white;
+  color: var(--ink);
 }
 
-/* Main container */
-.container {
-  max-width: 700px;
-  width: 90%;
-  margin: 0 auto 20px;
-  padding: 26px;
-  background: white;
+/* The Bootstrap container holds the top dashboard row. */
+.main-content {
+  max-width: 1100px;
+  width: calc(100% - 2rem);
+  margin: 0 auto 24px;
+  padding: 20px;
+  background: rgba(8, 27, 46, 0.72);
   border-radius: 16px;
-  box-shadow: 0 5px 24px rgba(0, 60, 116, 0.07);
+  box-shadow: 0 5px 24px rgba(0, 0, 0, 0.35);
   text-align: center;
 }
 
-/* Check-in form */
+/* Form card: JavaScript reads these controls when the form is submitted. */
 .check-in {
   width: 100%;
   margin: 0 auto;
-  padding: 30px;
-  background-color: #f8fafc;
+  padding: 24px;
+  background-color: var(--panel-light);
+  color: var(--panel-ink);
   border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(2, 13, 29, 0.22);
   text-align: center;
+  margin-top: 20px;
 }
 
 .form-group {
@@ -103,48 +137,56 @@ body {
   width: 100%;
 }
 
-/* Form elements */
+/* Inputs and selects share the light card treatment and blue focus state. */
 input {
   flex: 1;
-  padding: 16px 20px;
-  border: 2px solid rgba(0, 0, 0, 0.08);
+  min-width: 0;
+  padding: 12px 16px;
+  border: 2px solid #b5d0e2;
   border-radius: 12px;
   font-size: 17px;
   font-weight: 500;
-  background: white;
-  color: #2c3e50;
+  background: var(--white);
+  color: var(--panel-ink);
   transition: all 0.3s ease;
   outline: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 input:focus {
-  border-color: #0071c5;
-  box-shadow: 0 0 0 4px rgba(0, 113, 197, 0.15);
+  border-color: var(--energy-blue);
+  box-shadow: 0 0 0 4px rgba(0, 199, 253, 0.25);
 }
 
 button {
-  background-color: #0071c5;
-  color: white;
+  background-color: var(--intel-blue);
+  color: var(--white);
   border: none;
   border-radius: 12px;
-  padding: 0 28px;
-  min-width: 160px;
-  height: 56px;
+  padding: 0 24px;
+  min-width: 145px;
+  height: 48px;
   font-size: 17px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 113, 197, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 113, 197, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 button:hover {
-  background-color: #005a9e;
+  background-color: var(--ocean-blue);
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 113, 197, 0.3);
+  box-shadow: 0 6px 15px rgba(27, 108, 168, 0.4);
+}
+
+button:disabled {
+  background-color: var(--panel-muted);
+  cursor: not-allowed;
+  opacity: 0.8;
+  transform: none;
 }
 
 #checkInBtn {
@@ -167,7 +209,7 @@ button .fas {
   margin-right: 8px;
 }
 
-/* Attendance section spacing */
+/* Shared alignment for the attendance label inside the status card. */
 .attendance-header {
   display: flex;
   align-items: center;
@@ -175,15 +217,18 @@ button .fas {
   gap: 6px;
   margin-bottom: 15px;
   font-size: 17px;
-  color: #64748b;
+  color: var(--panel-muted);
 }
 
-/* Attendance tracker styling */
+/* Event status card: its values are refreshed by updateDisplay() in script.js. */
 .attendance-tracker {
-  max-width: 700px;
-  width: 90%;
-  margin: 0 auto 40px;
-  padding: 0 20px;
+  height: 100%;
+  margin: 0;
+  padding: 18px 22px;
+  background: var(--panel-light);
+  border: 1px solid rgba(181, 208, 226, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(2, 13, 29, 0.22);
   text-align: center;
 }
 
@@ -192,99 +237,121 @@ button .fas {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  margin-bottom: 15px;
-  font-size: 17px;
-  color: #64748b;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: var(--panel-muted);
 }
 
 #attendeeCount {
-  color: #0071c5;
-  font-size: 24px;
+  color: var(--energy-blue);
+  font-size: 30px;
   font-weight: 700;
   margin: 0 2px;
 }
 
 .attendance-header i {
-  color: #0071c5;
+  color: var(--energy-blue);
   font-size: 20px;
   margin-right: 4px;
 }
 
 /* Max attendees text */
 .attendance-header span:last-child {
-  color: #64748b;
+  color: var(--panel-muted);
   font-size: 17px;
 }
 
-/* Progress container - simplified */
+/* The track stays visible at zero while the inner bar receives its width from JavaScript. */
 .progress-container {
   width: 100%;
   max-width: 500px;
-  height: 16px;
-  background-color: #e0e0e0;
+  height: 20px;
+  background-color: var(--navy-3);
   border-radius: 10px;
   overflow: hidden;
-  margin: 8px auto;
+  margin: 12px auto;
   position: relative;
 }
 
 .progress-bar {
   width: 0%;
   height: 100%;
-  background-color: #0071c5;
-  background-image: linear-gradient(90deg, #0071c5, #00aeef);
+  background-color: var(--intel-blue);
+  background-image: linear-gradient(90deg, var(--intel-blue), var(--energy-blue));
   border-radius: 10px;
   transition: width 0.6s ease;
 }
 
-/* Adjust spacing between components */
-.container {
-  margin-top: 0;
+.capacity-status,
+.capacity-percentage {
+  color: var(--panel-muted);
+  font-size: 14px;
+  margin: 0;
 }
 
-/* Messages */
+.capacity-status {
+  margin-bottom: 10px;
+}
+
+.capacity-percentage {
+  margin-top: 8px;
+  color: var(--energy-blue);
+  font-weight: 600;
+}
+
+/* Reserved space prevents the dashboard from jumping when a greeting appears. */
+.welcome-area {
+  min-height: 48px;
+  width: calc(100% - 2rem);
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 #greeting {
-  font-weight: 500;
-  font-size: 18px;
-  padding: 16px 20px;
-  border-radius: 8px;
-  color: #333;
-  margin-bottom: 15px;
-  display: none;
+  margin: 0;
+  padding: 6px 20px;
+  color: var(--white);
+  font-size: 26px;
+  font-weight: 700;
+  font-family: "Space Grotesk", "Segoe UI", Arial, sans-serif;
+  text-shadow: 0 2px 8px rgba(2, 13, 29, 0.8);
+  visibility: hidden;
 }
 
-.success-message {
-  background-color: #e8f4fc;
-  color: #003c71;
+#greeting.success-message {
+  background-color: transparent;
+  color: var(--white);
+  visibility: visible;
 }
 
-/* Counter */
+/* The count is repeated here to preserve its accent styling wherever it is used. */
 #attendeeCount {
-  color: #0071c5;
+  color: var(--energy-blue);
   font-size: 24px;
   font-weight: 700;
   margin: 0 2px;
 }
 
-/* Footer */
+/* Footer content remains quiet so the interactive sections stay primary. */
 .footer {
   text-align: center;
   padding: 40px 20px;
-  color: #94a3b8;
+  color: var(--muted-ink);
   font-size: 14px;
 }
 
 .footer-link {
-  color: #64748b;
+  color: var(--muted-ink);
   text-decoration: none;
 }
 
 .footer-link:hover {
-  color: #0071c5;
+  color: var(--energy-blue);
   text-decoration: underline;
 }
 
-/* Input wrapper for name and team select */
+/* The wrapper lets the name field grow while the team select keeps a stable width. */
 .input-wrapper {
   flex: 1;
   display: flex;
@@ -293,62 +360,206 @@ button .fas {
 }
 
 select {
-  padding: 16px;
-  border: 2px solid rgba(0, 0, 0, 0.08);
+  flex: 0 0 150px;
+  width: 150px;
+  padding: 12px;
+  border: 2px solid #b5d0e2;
   border-radius: 12px;
   font-size: 17px;
   font-weight: 500;
-  background: white;
-  color: #2c3e50;
+  background: var(--white);
+  color: var(--panel-ink);
   cursor: pointer;
-  min-width: 140px;
 }
 
-/* Team Stats */
+/* Team summary section sits below the primary check-in dashboard. */
 .team-stats {
-  margin-top: 30px;
-  padding-top: 30px;
-  border-top: 2px solid #f1f5f9;
+  margin-top: 20px;
+  padding: 8px 0 0;
+  max-width: 1100px;
+  width: calc(100% - 2rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.team-stats::before {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin: 0 auto 22px;
+  background: var(--energy-blue);
+  border-radius: 999px;
 }
 
 .team-stats h3 {
-  color: #64748b;
-  font-size: 16px;
-  margin-bottom: 20px;
+  color: var(--white);
+  font-size: 28px;
+  letter-spacing: 0.02em;
+  margin-bottom: 18px;
+  text-shadow: 0 2px 8px rgba(2, 13, 29, 0.7);
+}
+
+.team-kicker {
+  margin: 0 0 4px;
+  color: var(--energy-blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .teams-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .team-card {
-  padding: 15px;
-  border-radius: 12px;
+  min-height: 150px;
+  padding: 18px 32px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
+  border-left: 4px solid var(--energy-blue);
+  justify-content: center;
+  align-items: center;
+  color: var(--panel-ink);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Team card colors */
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(2, 13, 29, 0.25) !important;
+}
+
+.team-card.zero {
+  border-left-color: var(--sustainability-green);
+}
+
+.team-card.power {
+  border-left-color: var(--sustainability-gold);
+}
+
+/* Each team keeps a distinct sustainability color while sharing the same shape. */
 .team-card.water {
-  background-color: #e8f7fc;
+  background-color: rgba(188, 231, 247, 0.95);
 }
 .team-card.zero {
-  background-color: #ecfdf3;
+  background-color: rgba(202, 241, 226, 0.95);
 }
 .team-card.power {
-  background-color: #fff7ed;
+  background-color: rgba(255, 235, 180, 0.95);
 }
 
 .team-name {
-  font-size: 15px;
-  font-weight: 500;
-  color: #475569;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--panel-ink);
 }
 
-/* Mobile responsive */
+.team-count {
+  font-family: "Space Grotesk", "Segoe UI", Arial, sans-serif;
+  color: var(--panel-ink);
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.team-label {
+  color: var(--panel-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* These lower sections share the same responsive width as the main dashboard. */
+.celebration-area,
+.attendee-list-section {
+  width: calc(100% - 2rem);
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* The alert is hidden by Bootstrap until the goal is reached. */
+.celebration-area {
+  margin-top: 26px;
+}
+
+.celebration-area .alert {
+  margin-bottom: 0;
+  border: 0;
+  border-radius: 16px;
+  background-color: rgba(62, 216, 164, 0.92);
+  color: var(--panel-ink);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Attendee history uses Bootstrap list-group markup created by JavaScript. */
+.attendee-list-section {
+  margin-top: 30px;
+}
+
+.attendee-list-section h3 {
+  color: var(--white);
+  font-size: 24px;
+  margin-bottom: 16px;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(2, 13, 29, 0.7);
+}
+
+#attendeeList .list-group-item {
+  border: 0;
+  border-bottom: 1px solid rgba(181, 208, 226, 0.75);
+  background-color: rgba(237, 247, 255, 0.94);
+  color: var(--panel-ink);
+  padding: 14px 18px;
+}
+
+#attendeeList .list-group-item:first-child {
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+#attendeeList .list-group-item:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+.attendee-empty {
+  color: var(--panel-muted) !important;
+  text-align: center;
+}
+
+.team-badge {
+  color: var(--panel-ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.team-badge.water {
+  background-color: #bce7f7;
+}
+
+.team-badge.zero {
+  background-color: #caf1e2;
+}
+
+.team-badge.power {
+  background-color: #ffebb4;
+}
+
+#attendeeList {
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+/* On small screens Bootstrap columns stack and custom spacing becomes narrower. */
 @media (max-width: 768px) {
   .hero {
     padding: 35px 20px;
@@ -356,7 +567,8 @@ select {
   .hero h1 {
     font-size: 38px;
   }
-  .container {
+  .main-content {
+    width: auto;
     padding: 32px;
     margin: 0 15px 30px;
   }
@@ -378,7 +590,19 @@ select {
     flex-direction: column;
   }
 
-  .teams-grid {
-    grid-template-columns: 1fr;
+  .team-card {
+    min-height: 140px;
+  }
+
+  .team-stats {
+    width: auto;
+    margin: 0 15px 30px;
+  }
+
+  .celebration-area,
+  .attendee-list-section {
+    width: auto;
+    margin-left: 15px;
+    margin-right: 15px;
   }
 }
